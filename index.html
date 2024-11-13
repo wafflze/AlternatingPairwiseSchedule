@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Alternating Pairwise Schedule Generator</title>
+</head>
+<body>
+    <h1>Alternating Pairwise Schedule Generator</h1>
+    <form>
+        <label for="players">Add Players (separated by commas):</label>
+        <textarea id="players" name="players"></textarea>
+        
+
+        <button onclick="generateSchedule()">Generate Schedule</button>
+        <div id="schedule"></div>
+    </form>
+
+    <script>
+        function generateSchedule() {
+            const players = document.getElementById('players').value.split(',');
+            const scheduleContainer = document.getElementById('schedule');
+            const playersCount = players.length;
+
+            // Simple schedule generation logic (simplified for this example)
+            let schedule = '';
+            for (let i = 0; i < playersCount - 1; i++) {
+                schedule += `Round ${i+1}: ${players[i]}&${players[i+1]}, ${players[i+2]? 'Sits' : ''}
+`;
+            }
+
+            scheduleContainer.innerHTML = schedule;
+        }
+    </script>
+    </body>
+</html>
