@@ -4,22 +4,18 @@ document.addEventListener("DOMContentLoaded", function () {
     const scheduleContainer = document.getElementById('schedule');
 
     generateScheduleBtn.addEventListener('click', function (event) {
-        // Prevent default form submission behavior (page refresh)
         event.preventDefault();
 
         const players = document.getElementById('players').value.split(',');
-        const schedule = generateAlternatingPairwiseSchedule(players);
-
-        scheduleContainer.innerHTML = schedule;
-    });
-
-    function generateAlternatingPairwiseSchedule(players) {
         let schedule = '';
+
+        // Alternating Pairwise Schedule logic (similar to Go program)
         for (let i = 0; i < players.length - 1; i++) {
-            schedule += `Round ${i+1}: ${players[i]}&${players[(i+1)%players.length]}, ${players[(i+2)%players.length]? 'Sits' : ''}
+            const nextPlayer = (i + 1) % players.length;
+            const nextNextPlayer = (i + 1) % players.length;
+            const sittingPlayer = (i + 2) % players.length? players[nextPlayer] + 'its' : '';
+            schedule += `Round ${i+1}: ${players[i]}&${players[nextPlayer]}, ${sitttingPlayer}
 `;
         }
-        return schedule;
-    }
-});
-	
+        scheduleContainer.innerHTML = schedule;
+    });
