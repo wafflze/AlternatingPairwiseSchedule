@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Alternating Pairwise Schedule Generator</title>
+</head>
+<body>
+    <h1>Alternating Pairwise Schedule Generator</h1>
+    <form id="schedule-form">
+        <label for="players">Add Players (separated by commas):</label>
+        <textarea id="players" name="players">j,k,l,m,o,p</textarea>
+        
+
+        <button id="generate-schedule-btn" type="button">Generate Schedule</button>
+        <div id="schedule"></div>
+    </form>
+
+    <script>
+       document.addEventListener("DOMContentLoaded", function () {
+    const scheduleForm = document.getElementById('schedule-form');
+    const generateScheduleBtn = document.getElementById('generate-schedule-btn');
+    const scheduleContainer = document.getElementById('schedule');
+    const playersInput = document.getElementById('players');
+
+    generateScheduleBtn.addEventListener('click', function () {
+        const players = playersInput.value.split(',');
+        const schedule = generateAlternatingPairwiseSchedule(players);
+
+        scheduleContainer.innerHTML = schedule;
+    });
+
+    function generateAlternatingPairwiseSchedule(players) {
+        let schedule = '';
+        const numRounds = players.length - 1; // Adjusted for even number of players
+
+        for (let i = 0; i < numRounds; i++) {
+            const player1 = players[i];
+            const player2 = players[i + 1];
+            const player3 = players[(i + 2) % players.length];
+            const player4 = players[(i + 3) % players.length];
+            const sittingPlayer1 = players[(i + 4) % players.length];
+            const sittingPlayer2 = players[(i + 5) % players.length];
+
+            schedule += `Round ${i+1}: ${player1}&${player2} vs ${player3}&${player4}, ${sittingPlayer1} & ${sittingPlayer2} sit </br>
+`;
+        }
+        return schedule;
+    }
+});
+
+    </script>
+</body>
+</html>
